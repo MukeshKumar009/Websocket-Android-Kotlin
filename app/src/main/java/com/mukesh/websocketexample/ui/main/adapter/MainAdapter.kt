@@ -1,16 +1,18 @@
 package com.mukesh.websocketexample.ui.main.adapter
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.mindorks.framework.mvvm.utils.Utility
 import com.mukesh.websocketexample.R
 import com.mukesh.websocketexample.model.Citydata
-import com.mukesh.websocketexample.ui.main.view.ChartActivity
 import kotlinx.android.synthetic.main.item_layout.view.*
 
+/**
+ * Adapter to be used for Recycler view
+ */
 class MainAdapter(
     private val cityData: ArrayList<Citydata>
 ) : RecyclerView.Adapter<MainAdapter.DataViewHolder>() {
@@ -27,9 +29,9 @@ class MainAdapter(
 
             //Click action for lost item, pass the city name
             itemView.setOnClickListener(View.OnClickListener {
-                val intent = Intent(itemView.context, ChartActivity::class.java)
+                val intent = Intent()
                 intent.putExtra(CITY_NAME,cityData.cityName)
-                itemView.context.startActivity(intent)
+                it.findNavController().navigate(R.id.action_mainActivityWebSocketFragment_to_chartFragment,intent.extras)
             })
         }
     }
